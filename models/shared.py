@@ -35,6 +35,8 @@ def loaderLLM(llm_model: str = None, no_remote_model: bool = False, use_ptuning_
 
     if 'FastChatOpenAILLM' in llm_model_info["provides"]:
         loaderCheckPoint.unload_model()
+    elif "FastChatZhipuLLM" in llm_model_info["provides"]:
+        loaderCheckPoint.unload_model()
     else:
         loaderCheckPoint.reload_model()
 
@@ -43,5 +45,10 @@ def loaderLLM(llm_model: str = None, no_remote_model: bool = False, use_ptuning_
     if 'FastChatOpenAILLM' in llm_model_info["provides"]:
         modelInsLLM.set_api_base_url(llm_model_info['api_base_url'])
         modelInsLLM.call_model_name(llm_model_info['name'])
+<<<<<<< Updated upstream
         modelInsLLM.set_api_key(llm_model_info['api_key'])
+=======
+    if "FastChatZhipuLLM" in llm_model_info["provides"]:
+        modelInsLLM.call_model_name(llm_model_info['name'])
+>>>>>>> Stashed changes
     return modelInsLLM

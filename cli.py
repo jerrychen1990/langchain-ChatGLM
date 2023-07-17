@@ -82,6 +82,8 @@ def start_cli():
 
 @start.command(name="webui", context_settings=dict(help_option_names=['-h', '--help']))
 def start_webui():
+    import openai
+    openai.ChatCompletion.create
     import webui
 
 

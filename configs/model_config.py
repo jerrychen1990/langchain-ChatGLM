@@ -4,7 +4,8 @@ import os
 import logging
 import uuid
 
-LOG_FORMAT = "%(levelname) -5s %(asctime)s" "-1d: %(message)s"
+LOG_FORMAT = "%(asctime)s %(pathname)s %(filename)s %(funcName)s %(lineno)s %(levelname)s - %(message)s"
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logging.basicConfig(format=LOG_FORMAT)
@@ -16,13 +17,13 @@ embedding_model_dict = {
     "ernie-tiny": "nghuyong/ernie-3.0-nano-zh",
     "ernie-base": "nghuyong/ernie-3.0-base-zh",
     "text2vec-base": "shibing624/text2vec-base-chinese",
-    "text2vec": "GanymedeNil/text2vec-large-chinese",
-    "m3e-small": "moka-ai/m3e-small",
+    "text2vec-large": "/gpfs02/research/model/text2vec-large-chinese",
+    "m3e-small": "/gpfs02/nfs/chenhao/models/m3e-small",
     "m3e-base": "moka-ai/m3e-base",
 }
 
 # Embedding model name
-EMBEDDING_MODEL = "text2vec"
+EMBEDDING_MODEL = "text2vec-large"
 
 # Embedding running device
 EMBEDDING_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
@@ -60,6 +61,7 @@ llm_model_dict = {
     "chatglm2-6b": {
         "name": "chatglm2-6b",
         "pretrained_model_name": "THUDM/chatglm2-6b",
+<<<<<<< Updated upstream
         "local_model_path": None,
         "provides": "ChatGLMLLMChain"
     },
@@ -74,6 +76,10 @@ llm_model_dict = {
         "pretrained_model_name": "THUDM/chatglm2-6b-int8",
         "local_model_path": None,
         "provides": "ChatGLMLLMChain"
+=======
+        "local_model_path": "/gpfs02/nfs/chenhao/models/chatglm2-6b",
+        "provides": "ChatGLM"
+>>>>>>> Stashed changes
     },
     "chatyuan": {
         "name": "chatyuan",
@@ -143,7 +149,7 @@ llm_model_dict = {
     # 通过 fastchat 调用的模型请参考如下格式
     "fastchat-chatglm-6b": {
         "name": "chatglm-6b",  # "name"修改为fastchat服务中的"model_name"
-        "pretrained_model_name": "chatglm-6b",
+        "pretrained_model_name": "/gpfs02/nfs/chenhao/models/chatglm-6b",
         "local_model_path": None,
         "provides": "FastChatOpenAILLMChain",  # 使用fastchat api时，需保证"provides"为"FastChatOpenAILLMChain"
         "api_base_url": "http://localhost:8000/v1",  # "name"修改为fastchat服务中的"api_base_url"
@@ -151,10 +157,23 @@ llm_model_dict = {
     },
     "fastchat-chatglm2-6b": {
         "name": "chatglm2-6b",  # "name"修改为fastchat服务中的"model_name"
-        "pretrained_model_name": "chatglm2-6b",
+        "pretrained_model_name": "/gpfs02/nfs/chenhao/models/chatglm2-6b",
         "local_model_path": None,
+<<<<<<< Updated upstream
         "provides": "FastChatOpenAILLMChain",  # 使用fastchat api时，需保证"provides"为"FastChatOpenAILLMChain"
         "api_base_url": "http://localhost:8000/v1"  # "name"修改为fastchat服务中的"api_base_url"
+=======
+        "provides": "FastChatOpenAILLM",  # 使用fastchat api时，需保证"provides"为"FastChatOpenAILLM"
+        "api_base_url": "http://172.16.0.105:8092/v1"  # "name"修改为fastchat服务中的"api_base_url"
+    },
+
+    "fastchat-zhipu-chatglm-standard": {
+        "name": "chatglm-standard",  # "name"修改为fastchat服务中的"model_name"
+        "pretrained_model_name": "/gpfs02/nfs/chenhao/models/chatglm2-6b",
+        "local_model_path": None,
+        "provides": "FastChatZhipuLLM",  # 使用fastchat api时，需保证"provides"为"FastChatOpenAILLM"
+        "api_base_url": ""  # "name"修改为fastchat服务中的"api_base_url"
+>>>>>>> Stashed changes
     },
 
     # 通过 fastchat 调用的模型请参考如下格式
@@ -186,7 +205,7 @@ llm_model_dict = {
 }
 
 # LLM 名称
-LLM_MODEL = "chatglm-6b"
+LLM_MODEL = "fastchat-chatglm2-6b"
 # 量化加载8bit 模型
 LOAD_IN_8BIT = False
 # Load the model with bfloat16 precision. Requires NVIDIA Ampere GPU.

@@ -164,26 +164,30 @@ def get_vector_store(vs_id, files, sentence_size, history, one_conent, one_conte
         vs_path = None
     logger.info(file_status)
     return vs_path, None, history + [[None, file_status]], \
-           gr.update(choices=local_doc_qa.list_file_from_vector_store(vs_path) if vs_path else [])
+        gr.update(choices=local_doc_qa.list_file_from_vector_store(vs_path) if vs_path else [])
 
 
 def change_vs_name_input(vs_id, history):
     if vs_id == "新建知识库":
         return gr.update(visible=True), gr.update(visible=True), gr.update(visible=False), None, history, \
+<<<<<<< Updated upstream
                gr.update(choices=[]), gr.update(visible=False)
+=======
+            gr.update(choices=[]), gr.update(visible=False)
+>>>>>>> Stashed changes
     else:
         vs_path = os.path.join(KB_ROOT_PATH, vs_id, "vector_store")
         if "index.faiss" in os.listdir(vs_path):
             file_status = f"已加载知识库{vs_id}，请开始提问"
             return gr.update(visible=False), gr.update(visible=False), gr.update(visible=True), \
-                   vs_path, history + [[None, file_status]], \
-                   gr.update(choices=local_doc_qa.list_file_from_vector_store(vs_path), value=[]), \
-                   gr.update(visible=True)
+                vs_path, history + [[None, file_status]], \
+                gr.update(choices=local_doc_qa.list_file_from_vector_store(vs_path), value=[]), \
+                gr.update(visible=True)
         else:
             file_status = f"已选择知识库{vs_id}，当前知识库中未上传文件，请先上传文件后，再开始提问"
             return gr.update(visible=False), gr.update(visible=False), gr.update(visible=True), \
-                   vs_path, history + [[None, file_status]], \
-                   gr.update(choices=[], value=[]), gr.update(visible=True, value=[])
+                vs_path, history + [[None, file_status]], \
+                gr.update(choices=[], value=[]), gr.update(visible=True, value=[])
 
 
 knowledge_base_test_mode_info = ("【注意】\n\n"
@@ -297,13 +301,17 @@ def delete_vs(vs_id, chatbot):
         chatbot = chatbot + [[None, status]]
         return gr.update(choices=get_vs_list(), value=get_vs_list()[0]), gr.update(visible=True), gr.update(
             visible=True), \
+<<<<<<< Updated upstream
                gr.update(visible=False), chatbot, gr.update(visible=False)
+=======
+            gr.update(visible=False), chatbot, gr.update(visible=False)
+>>>>>>> Stashed changes
     except Exception as e:
         logger.error(e)
         status = f"删除知识库{vs_id}失败"
         chatbot = chatbot + [[None, status]]
         return gr.update(visible=True), gr.update(visible=False), gr.update(visible=False), \
-               gr.update(visible=True), chatbot, gr.update(visible=True)
+            gr.update(visible=True), chatbot, gr.update(visible=True)
 
 
 block_css = """.importantButton {
@@ -571,5 +579,5 @@ with gr.Blocks(css=block_css, theme=gr.themes.Default(**default_theme_args)) as 
  .launch(server_name='0.0.0.0',
          server_port=7860,
          show_api=False,
-         share=False,
+         share=True,
          inbrowser=False))
